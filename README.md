@@ -1,2 +1,9 @@
 # Book-Recommendation-System
-Recommendation system for recommending books for users by analyzing his or her past preferences.
+Capstone Project Unsupervised Machine Learning: Recommendation System
+
+# Introduction
+Recommendation systems are widely used today to recommend relevant products to users based on their interests. Every consumer Internet company like Netflix, YouTube, etc., requires a recommendation system for efficient functioning. Recommendation systems are crucial in some industries where they can generate a large amount of income when they are efficient. It also helps companies to stand out from their competitors. 
+
+A Book Recommendation System is a type of recommendation system where we have to recommend similar books to the reader based on their interest. This project aims to build different types of book recommendation systems.
+# Summary
+We are given three datasets-Users, Books, and Ratings; taken from the Amazon web service. The methodology follows understanding data, preprocessing, EDA, building model, and evaluation. After preprocessing, we merged the datasets by taking inner join to get the final dataset. The final dataset contained both implicit and explicit ratings. But unlike explicit ratings, implicit ratings cannot tell whether a user liked or disliked a book directly. So for this project, we are only considering explicit ratings. Thus we removed implicit ratings. We did EDA to get insights regarding top books, authors, publishers, etc. The five different models built are Popularity-Based, Simple Recommendation - based on weighted ratings, Author-Based, Collaborative Filtering using K Nearest Neighbors, and Collaborative Filtering using Singular Value Decomposition method. After evaluating the SVD model, we got recall@5 about 30% and recall@10 about 41%. This means 30% of the items in the test set are ranked among the top 5 positions, and 41% are ranked among the top 10 positions by our model.

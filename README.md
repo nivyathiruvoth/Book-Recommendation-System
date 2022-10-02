@@ -1,6 +1,8 @@
 # Book-Recommendation-System
 Capstone Project Unsupervised Machine Learning: Recommendation System
 
+![image](https://user-images.githubusercontent.com/92729412/193462151-40c793e4-7d98-4301-aaa1-335702a84c73.png)
+
 # Introduction
 Recommendation systems are widely used today to recommend relevant products to users based on their interests. Every consumer Internet company like Netflix, YouTube, etc., requires a recommendation system for efficient functioning. Recommendation systems are crucial in some industries where they can generate a large amount of income when they are efficient. It also helps companies to stand out from their competitors. 
 
@@ -44,19 +46,109 @@ Ratings dataset contains information regarding the users.
 
 We have three different datasets which contains details of books, users and book ratings. Image-URL colums from books dataset contain no information that helps in the analysis process, hence we consider only the first 5 columns for further process. Users, books, and ratings datasets were merged after imputing missing values, removing duplicates, and correcting and cleaning invalid entries. The final dataset contained both implicit and explicit ratings. But unlike explicit ratings, implicit ratings cannot tell whether a user liked or disliked a book directly. So for this project, we are only considering explicit ratings.
 
+Final Dataset
+
+![image](https://user-images.githubusercontent.com/92729412/193462037-fafd63a5-787a-41db-afc1-ed5f6a5509b7.png)
+
 # EDA
 
-Identified most popular book, top authors, top publishers etc.
-Carried out city, state and country based analysis to identify the demographic region with heighest number of online readers for amazon.
-Performed age based analysis to understand which age group is more in to online reading.
+### 1. MOST RATED BOOKS
+
+![image](https://user-images.githubusercontent.com/92729412/193462256-2637b479-67dc-4c58-8546-e5caf4b4faa8.png)
+
+* 'The Lovely Bones:A Novel' is the book with the highest number of ratings.
+
+* It is followed by 'Wild Animus' and 'The Da Vinci Code'
+
+### 2. Top Book-Authors
+
+![image](https://user-images.githubusercontent.com/92729412/193462301-74e7c76a-1ab3-487a-b393-2665488ac84a.png)
+
+Analyzing the given data, one can conclude that Stephan King's books received the most number of ratings.
+
+### 3. Top 15 Book-Publishers
+
+![image](https://user-images.githubusercontent.com/92729412/193462341-58ddd9d3-588d-4f00-8623-030c54147d82.png)
+
+Top publishers on the basis of the number of ratings received for their books are 'Ballantine Books' and 'Pocket'.
+
+### 4. Number of ratings from each Country
+
+![image](https://user-images.githubusercontent.com/92729412/193462363-8682e8a9-13d6-4f6e-95a9-d6ccab2ee8bc.png)
+
+It can be observed that 77.16% of the ratings is from the Country USA. Now let's check the ratings from each state in USA.
+
+### 5. Age distribution
+
+![image](https://user-images.githubusercontent.com/92729412/193462422-f2b570f0-0b32-447a-939c-e47d44c9d5b5.png)
+
+It can be observed that most of the ratings are given by people of age between 30-40 years. Now let us find out the most rated books by people of different age groups- Teenage, Youth, Middle-age and elderly.
 
 # Recommendation Systems Biult
 
-1. Popularity-Based Recommendation System
-2. Simple Recommendation System
-3. Author-Based Recommendation System
-4. Collaborative Recommendation - k-Nearest Neighbours
-5. Collaborative Recommendation- Singular Value Decomposition 
+## 1. Popularity-Based Recommendation System
+
+It is a type of recommendation system which works on the principle of popularity and or anything which is in trend.
+
+![image](https://user-images.githubusercontent.com/92729412/193462783-64203b7e-84a4-4125-9c62-dacb393f66a6.png)
+
+These are the popular books based on the number of ratings received.
+
+## 2. Simple Recommendation System
+
+This method is based on the concept of weighted rating.
+![image](https://user-images.githubusercontent.com/92729412/193463267-d24def35-9870-4dfd-94ed-f5efca0a6a59.png)
+
+## 3. Author-Based Recommendation System
+This model recommends the top books by the same author.
+
+## 4. Collaborative Recommendation - k-Nearest Neighbours
+
+Collaborative filtering is a technique that helps filter out items for a user in a collaborative way, that is, based on the preferences of similar users. 
+
+KNN is a perfect memory based model for item based. It relies on item similarity.
+First we will convert our dataset to a 2D user-item matrix containing ratings as values and fill the missing values with zeros (since we will calculate distances between rating vectors). We then transform the values(ratings) of the matrix data frame into a scipy sparse matrix for more efficient calculations. Then we will fit the model. KNN will calculate the “distance” between the target book and every other book in its database, then it ranks its distances and returns the top K nearest neighbor books as the most similar book recommendations. The algorithm we use to compute the nearest neighbors is “brute”.  We have tried both minkowski and cosine similarity as distance metric.
+
+### * Cosine Similarity: 
+
+This measures the similarity using the cosine of the angle between two vectors in a multidimensional space. It is given by:
+
+![image](https://user-images.githubusercontent.com/92729412/193464135-14554da7-7919-4d4b-be7c-7f5197409221.png)
+
+If θ = 0°, the ‘x’ and ‘y’ vectors overlap, thus proving they are similar(similarity=1)
+
+If θ = 90°, the ‘x’ and ‘y’ vectors are dissimilar.(similarity=0)
+
+### * Minkowski Distance: 
+
+Minkowski distance is a distance/ similarity measurement between two points in the normed vector space (N dimensional real space) and is a generalization of the Euclidean distance and the Manhattan distance.
+
+![image](https://user-images.githubusercontent.com/92729412/193464204-a56335dc-f886-46e3-bcbd-13e6cdcae27d.png)
+
+p = 1, Manhattan Distance
+p = 2, Euclidean Distance
+
+## 5. Collaborative Recommendation- Singular Value Decomposition 
+
+Singular Value Decomposition (SVD)  is one of the Matrix Factorization models for identifying latent factors.
+
+Matrix Factorization is simply a mathematical tool for playing around with matrices. The Matrix Factorization techniques are usually more effective, because they allow users to discover the latent (hidden)features underlying the interactions between users and items (books).
+
+SVD is a model based approach. It uses a user-item matrix where each row represents a user, and each column represents an item. The elements of this matrix are the ratings that are given to items by users. Unlike other methods, this method is used for personalized recommendation where we will also consider removing those items the user has already interacted with in the recommendation.
+
+Like KNN, we convert our dataset into a 2D matrix (user-item matrix) and fill the missing values with zeros. Then we fit it into the model for dimensionality reduction.
+
+After the factorization, we try to reconstruct the original matrix by multiplying its factors. The resulting matrix is not sparse any more. It generated predictions for items the user has not yet interacted with, which we will exploit for recommendations.
+
+We then transpose this utility matrix, so that the ISBN becomes rows and UserIDs become columns. Then for each user we will sort the books according to the predicted values and recommend top books as most similar books.
+
+## * Evaluation 
+
+In Recommender Systems, there are a set of metrics commonly used for evaluation. We choose to work with Top-N accuracy metrics, which evaluates the accuracy of the top recommendations provided to a user, comparing to the items the user has actually interacted in test set.
+
+That is for each user and each item he has interacted in the test set, we take 100 non-interacted items by him. Then we generate recommendations using these 101 items. And will count how many of these interacted items are present within the topN positions. Then we compute recall@N by dividing hit@N-count by the total number of interacted items by the user in the test dataset.
+
+Finally we will aggregate the results of all the users to obtain the global recall@N.
 
 ## Conclusion
 
@@ -73,3 +165,5 @@ Performed age based analysis to understand which age group is more in to online 
 • Built 5 types of recommendation systems and did evaluation for one of them.
 
 • After evaluation for Collaborative Filtering-Singular Value Decomposition, we obtained recall@5 of 30% and recall@10 of 41%.
+
+#### This project will help the company stand out from its competitors and retain customers by enriching the user experience.
